@@ -1,0 +1,42 @@
+{
+  "name": "exercises_material",
+  "private": true,
+  "scripts": {
+    "start": "meteor run --settings settings.json",
+    "lint": "eslint . --ext .js,.jsx --ignore-pattern 'packages/**'",
+    "test": "npm run unit-test",
+    "unit-test": "jest -c .jest-config.json"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.36",
+    "@material-ui/core": "^1.2.3",
+    "@material-ui/icons": "^1.1.0",
+    "meteor-node-stubs": "^0.3.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.52",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^8.2.5",
+    "babel-jest": "^23.2.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-meteor": "^5.0.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.3.0",
+    "prettier": "^1.13.7",
+    "react-test-renderer": "^16.4.1",
+    "regenerator-runtime": "^0.12.0"
+  }
+}
