@@ -3,8 +3,8 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import Header from './components/layouts/Header';
-import Footer from './components/layouts/Footer';
+import Header from "./components/layouts/Header";
+import Footer from "./components/layouts/Footer";
 
 // App component - represents the whole app
 export default withStyles(styles)(
