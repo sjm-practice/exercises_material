@@ -3,9 +3,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import renderer from "react-test-renderer";
-import { shallow } from "enzyme";
-import { Typography } from "@material-ui/core";
+import { mount } from "enzyme";
 import App from "../App";
+import Header from "../components/layouts/Header";
+import Footer from "../components/layouts/Footer";
 
 describe("<App />", function() {
   it("matches render snapshot", function() {
@@ -13,8 +14,9 @@ describe("<App />", function() {
     expect(tree).toMatchSnapshot();
   });
 
-  it("contains a Typography component with 'Hello!'", function() {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find(Typography).prop("children")).toEqual("Hello!");
+  it("contains a Footer and Header components", function() {
+    const wrapper = mount(<App />);
+    expect(wrapper.find(Header)).toHaveLength(1);
+    expect(wrapper.find(Footer)).toHaveLength(1);
   });
 });
