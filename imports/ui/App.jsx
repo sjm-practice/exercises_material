@@ -6,6 +6,7 @@ import styles from "./styles";
 import Header from "./components/layouts/Header";
 import Exercises from "./components/Exercises/Exercises";
 import Footer from "./components/layouts/Footer";
+import { muscles, exercises } from "../data/store";
 
 // App component - represents the whole app
 export default withStyles(styles)(
@@ -14,16 +15,18 @@ export default withStyles(styles)(
       classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     };
 
-    state = {};
+    state = {
+      exercises,
+    };
 
     render() {
-      const { classes } = this.props;
+      const { classes } = this.props; // eslint-disable-line no-unused-vars
 
       return (
         <Fragment>
           <Header />
           <Exercises />
-          <Footer />
+          <Footer muscles={muscles} />
         </Fragment>
       );
     }
