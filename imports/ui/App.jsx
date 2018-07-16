@@ -1,4 +1,4 @@
-/* eslint-disable arrow-parens, object-curly-newline */
+/* eslint-disable arrow-parens, object-curly-newline react/destructuring-assignment */
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -19,13 +19,29 @@ export default withStyles(styles)(
       exercises,
     };
 
+    getExercisesByMuscle() {
+      return Object.entries(
+        this.state.exercises.reduce((exerciseList, exercise) => {
+          const { muscles } = exercise; // eslint-disable-line no-shadow
+
+          exerciseList[muscles] = exerciseList[muscles] // eslint-disable-line no-param-reassign
+            ? [...exerciseList[muscles], exerciseList]
+            : [exercise];
+
+          return exerciseList;
+        }, {}),
+      );
+    }
+
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
+
+      const exercises = this.getExercisesByMuscle();
 
       return (
         <Fragment>
           <Header />
-          <Exercises />
+          <Exercises exercises={exercises} />
           <Footer muscles={muscles} />
         </Fragment>
       );
