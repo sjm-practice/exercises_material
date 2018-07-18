@@ -17,6 +17,7 @@ export default withStyles(styles)(
 
     state = {
       exercises,
+      exercise: {},
     };
 
     getExercisesByMuscle() {
@@ -33,16 +34,38 @@ export default withStyles(styles)(
       );
     }
 
+    handleCategorySelected = category => {
+      this.setState({
+        category,
+      });
+    };
+
+    handleExerciseSelected = id => {
+      this.setState(({ exercises }) => ({
+        exercise: exercises.find(ex => ex.id === id),
+      }));
+    };
+
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
       const exercises = this.getExercisesByMuscle();
+      const { category, exercise } = this.state;
 
       return (
         <Fragment>
           <Header />
-          <Exercises exercises={exercises} />
-          <Footer muscles={muscles} />
+          <Exercises
+            exercise={exercise}
+            category={category}
+            exercises={exercises}
+            onSelect={this.handleExerciseSelected}
+          />
+          <Footer
+            category={category}
+            muscles={muscles}
+            onSelect={this.handleCategorySelected}
+          />
         </Fragment>
       );
     }
