@@ -21,17 +21,10 @@ export default withStyles(styles)(
     };
 
     getExercisesByMuscle() {
-      return Object.entries(
-        this.state.exercises.reduce((exerciseList, exercise) => {
-          const { muscles } = exercise; // eslint-disable-line no-shadow
-
-          exerciseList[muscles] = exerciseList[muscles] // eslint-disable-line no-param-reassign
-            ? [...exerciseList[muscles], exerciseList]
-            : [exercise];
-
-          return exerciseList;
-        }, {}),
-      );
+      return muscles.map(group => {
+        const { exercises: groupEx } = this.state;
+        return [group, groupEx.filter(ex => ex.muscles === group)];
+      });
     }
 
     handleCategorySelected = category => {
@@ -41,15 +34,15 @@ export default withStyles(styles)(
     };
 
     handleExerciseSelected = id => {
-      this.setState(({ exercises }) => ({
-        exercise: exercises.find(ex => ex.id === id),
+      this.setState(({ exercises: exs }) => ({
+        exercise: exs.find(ex => ex.id === id),
       }));
     };
 
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
-      const exercises = this.getExercisesByMuscle();
+      const exs = this.getExercisesByMuscle();
       const { category, exercise } = this.state;
 
       return (
@@ -58,7 +51,7 @@ export default withStyles(styles)(
           <Exercises
             exercise={exercise}
             category={category}
-            exercises={exercises}
+            exercises={exs}
             onSelect={this.handleExerciseSelected}
           />
           <Footer
