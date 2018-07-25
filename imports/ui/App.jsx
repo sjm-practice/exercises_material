@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import Header from "./components/layouts/Header";
-import Exercises from "./components/Exercises/Exercises";
+import Exercises from "./components/exercises/Exercises";
 import Footer from "./components/layouts/Footer";
 import { muscles, exercises } from "../data/store";
 
