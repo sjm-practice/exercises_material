@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Paper, Tabs, Tab } from "@material-ui/core";
 
 const Footer = ({ muscles, category, onSelect }) => {
@@ -23,10 +22,6 @@ const Footer = ({ muscles, category, onSelect }) => {
       </Tabs>
     </Paper>
   );
-};
-
-Footer.propTypes = {
-  muscles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Footer;
