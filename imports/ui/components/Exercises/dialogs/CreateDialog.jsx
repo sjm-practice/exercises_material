@@ -13,6 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
 
+// eslint-disable-next-line no-unused-vars
 const styles = theme => ({
   FormControl: {
     width: 500,
@@ -53,7 +54,10 @@ class CreateDialog extends Component {
     const { exercise } = this.state;
     const { onCreate } = this.props;
 
-    onCreate(exercise);
+    onCreate({
+      ...exercise,
+      id: exercise.title.toLocaleLowerCase().replace(/ /g, "-"),
+    });
 
     // clear and close the form dialog
     this.setState({
