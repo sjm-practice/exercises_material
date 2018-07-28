@@ -2,9 +2,12 @@ import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const styles = {
   Paper: {
@@ -25,6 +28,7 @@ const Exercises = ({
     title = "Welcome!",
     description = "Please select an exercise from the list on the left.",
   },
+  onDelete,
 }) => (
   <Grid container>
     <Grid item sm>
@@ -40,10 +44,15 @@ const Exercises = ({
                 >
                   {group}
                 </Typography>
-                <List component="nav">
+                <List component="ul">
                   {exercises.map(({ id, title }) => (
                     <ListItem key={id} button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
+                      <ListItemSecondaryAction>
+                        <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
                     </ListItem>
                   ))}
                 </List>

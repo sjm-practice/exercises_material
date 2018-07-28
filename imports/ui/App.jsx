@@ -35,8 +35,14 @@ export default withStyles(styles)(
     };
 
     handleExerciseCreate = exercise => {
-      this.setState(({ exercises }) => ({
-        exercises: [...exercises, exercise],
+      this.setState(({ exercises: exs }) => ({
+        exercises: [...exs, exercise],
+      }));
+    };
+
+    handleExerciseDelete = id => {
+      this.setState(({ exercises: exs }) => ({
+        exercises: exs.filter(ex => ex.id !== id),
       }));
     };
 
@@ -54,6 +60,7 @@ export default withStyles(styles)(
             category={category}
             exercises={exs}
             onSelect={this.handleExerciseSelect}
+            onDelete={this.handleExerciseDelete}
           />
           <Footer
             category={category}
