@@ -6,6 +6,7 @@ import Header from "./components/layouts/Header";
 import Exercises from "./components/exercises/Exercises";
 import Footer from "./components/layouts/Footer";
 import { muscles, exercises } from "../data/store";
+import AlertDialogSlide, { alertDialog } from "./components/global/AlertDialogSlide";
 
 // App component - represents the whole app
 export default withStyles(styles)(
@@ -46,6 +47,21 @@ export default withStyles(styles)(
       }));
     };
 
+    handleExerciseEdit = id => {
+      alertDialog({
+        message: `editing an exercise: ${id}`,
+        context: `Here is the context message. yo.`,
+        button1: {
+          label: `Buttton 1`,
+          handler: () => alert("button one clicked."),
+        },
+        button2: {
+          label: `Buttton 2`,
+          handler: () => alert("button two clicked."),
+        },
+      });
+    };
+
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
@@ -61,12 +77,14 @@ export default withStyles(styles)(
             exercises={exs}
             onSelect={this.handleExerciseSelect}
             onDelete={this.handleExerciseDelete}
+            onEdit={this.handleExerciseEdit}
           />
           <Footer
             category={category}
             muscles={muscles}
             onSelect={this.handleCategorySelect}
           />
+          <AlertDialogSlide />
         </Fragment>
       );
     }
