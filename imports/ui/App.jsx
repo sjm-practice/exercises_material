@@ -27,11 +27,14 @@ export default withStyles(styles)(
     handleCategorySelect = category =>
       this.setState({
         category,
+        editMode: false,
+        exercise: {},
       });
 
     handleExerciseSelect = id =>
       this.setState(({ exercises: exs }) => ({
         exercise: exs.find(ex => ex.id === id),
+        editMode: false,
       }));
 
     handleExerciseCreate = exercise =>
@@ -42,12 +45,20 @@ export default withStyles(styles)(
     handleExerciseDelete = id =>
       this.setState(({ exercises: exs }) => ({
         exercises: exs.filter(ex => ex.id !== id),
+        editMode: false,
+        exercise: {},
       }));
 
-    handleExerciseEdit = id =>
+    handleExerciseSelectEdit = id =>
       this.setState(({ exercises: exs }) => ({
         exercise: exs.find(ex => ex.id === id),
-        editMode: !this.state.editMode,
+        editMode: true,
+      }));
+
+    handleExerciseEdit = exercise =>
+      this.setState(({ exercises: exs }) => ({
+        exercises: [...exs.filter(ex => ex.id !== exercise.id), exercise],
+        exercise,
       }));
 
     render() {
@@ -59,20 +70,25 @@ export default withStyles(styles)(
       return (
         <Fragment>
           <Header muscles={muscles} onExerciseCreate={this.handleExerciseCreate} />
+
           <Exercises
             exercise={exercise}
             category={category}
             exercises={exs}
             editMode={editMode}
+            muscles={muscles}
             onSelect={this.handleExerciseSelect}
             onDelete={this.handleExerciseDelete}
+            onSelectEdit={this.handleExerciseSelectEdit}
             onEdit={this.handleExerciseEdit}
           />
+
           <Footer
             category={category}
             muscles={muscles}
             onSelect={this.handleCategorySelect}
           />
+
           <AlertDialogSlide />
         </Fragment>
       );

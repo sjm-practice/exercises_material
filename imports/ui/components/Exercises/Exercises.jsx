@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import ExerciseForm from "./ExerciseForm";
 
 const styles = {
   Paper: {
@@ -21,16 +22,19 @@ const styles = {
 };
 
 const Exercises = ({
+  muscles,
   exercises,
   category,
   editMode,
   onSelect,
+  exercise, // ??? I don't get how this can be listed twice. maybe the second behaves like default.
   exercise: {
     id,
     title = "Welcome!",
     description = "Please select an exercise from the list on the left.",
   },
   onDelete,
+  onSelectEdit,
   onEdit,
 }) => (
   <Grid container>
@@ -52,7 +56,7 @@ const Exercises = ({
                     <ListItem key={id} button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
                       <ListItemSecondaryAction>
-                        <IconButton aria-label="Edit" onClick={() => onEdit(id)}>
+                        <IconButton aria-label="Edit" onClick={() => onSelectEdit(id)}>
                           <EditIcon />
                         </IconButton>
                         <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
@@ -70,7 +74,7 @@ const Exercises = ({
     <Grid item sm>
       <Paper style={styles.Paper}>
         {editMode ? (
-          <div>Editing.</div>
+          <ExerciseForm muscles={muscles} onSubmit={onEdit} exercise={exercise} />
         ) : (
           <Fragment>
             <Typography variant="display1">{title}</Typography>
