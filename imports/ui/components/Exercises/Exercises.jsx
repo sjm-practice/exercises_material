@@ -23,6 +23,7 @@ const styles = {
 const Exercises = ({
   exercises,
   category,
+  editMode,
   onSelect,
   exercise: {
     id,
@@ -68,10 +69,16 @@ const Exercises = ({
     </Grid>
     <Grid item sm>
       <Paper style={styles.Paper}>
-        <Typography variant="display1">{title}</Typography>
-        <Typography variant="subheading" style={{ marginTop: 20 }}>
-          {description}
-        </Typography>
+        {editMode ? (
+          <div>Editing.</div>
+        ) : (
+          <Fragment>
+            <Typography variant="display1">{title}</Typography>
+            <Typography variant="subheading" style={{ marginTop: 20 }}>
+              {description}
+            </Typography>
+          </Fragment>
+        )}
       </Paper>
     </Grid>
   </Grid>

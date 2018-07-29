@@ -14,6 +14,7 @@ export default withStyles(styles)(
     state = {
       exercises,
       exercise: {},
+      editMode: false,
     };
 
     getExercisesByMuscle() {
@@ -23,50 +24,37 @@ export default withStyles(styles)(
       });
     }
 
-    handleCategorySelect = category => {
+    handleCategorySelect = category =>
       this.setState({
         category,
       });
-    };
 
-    handleExerciseSelect = id => {
+    handleExerciseSelect = id =>
       this.setState(({ exercises: exs }) => ({
         exercise: exs.find(ex => ex.id === id),
       }));
-    };
 
-    handleExerciseCreate = exercise => {
+    handleExerciseCreate = exercise =>
       this.setState(({ exercises: exs }) => ({
         exercises: [...exs, exercise],
       }));
-    };
 
-    handleExerciseDelete = id => {
+    handleExerciseDelete = id =>
       this.setState(({ exercises: exs }) => ({
         exercises: exs.filter(ex => ex.id !== id),
       }));
-    };
 
-    handleExerciseEdit = id => {
-      alertDialog({
-        message: `editing an exercise: ${id}`,
-        context: `Here is the context message. yo.`,
-        button1: {
-          label: `Buttton 1`,
-          handler: () => alert("button one clicked."),
-        },
-        button2: {
-          label: `Buttton 2`,
-          handler: () => alert("button two clicked."),
-        },
-      });
-    };
+    handleExerciseEdit = id =>
+      this.setState(({ exercises: exs }) => ({
+        exercise: exs.find(ex => ex.id === id),
+        editMode: !this.state.editMode,
+      }));
 
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
       const exs = this.getExercisesByMuscle();
-      const { category, exercise } = this.state;
+      const { category, exercise, editMode } = this.state;
 
       return (
         <Fragment>
@@ -75,6 +63,7 @@ export default withStyles(styles)(
             exercise={exercise}
             category={category}
             exercises={exs}
+            editMode={editMode}
             onSelect={this.handleExerciseSelect}
             onDelete={this.handleExerciseDelete}
             onEdit={this.handleExerciseEdit}
