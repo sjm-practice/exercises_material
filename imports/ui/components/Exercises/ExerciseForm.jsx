@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/core/styles";
 // eslint-disable-next-line no-unused-vars
 const styles = theme => ({
   FormControl: {
-    width: 300,
+    width: 250,
   },
 });
 

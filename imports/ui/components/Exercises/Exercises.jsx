@@ -12,18 +12,17 @@ import EditIcon from "@material-ui/icons/Edit";
 import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
   paper: {
     padding: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
     height: 500,
     overflowY: "auto",
   },
-};
+});
 
 const Exercises = ({
   muscles,

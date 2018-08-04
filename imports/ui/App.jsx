@@ -1,5 +1,6 @@
 /* eslint-disable arrow-parens, object-curly-newline react/destructuring-assignment */
 import React, { Component, Fragment } from "react";
+import CssBaseLine from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import Header from "./components/layouts/Header";
@@ -69,6 +70,8 @@ export default withStyles(styles)(
 
       return (
         <Fragment>
+          <CssBaseLine />
+
           <Header muscles={muscles} onExerciseCreate={this.handleExerciseCreate} />
 
           <Exercises
