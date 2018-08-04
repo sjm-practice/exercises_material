@@ -9,10 +9,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 
 const styles = {
-  Paper: {
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
     padding: 20,
     marginTop: 10,
     marginBottom: 10,
@@ -36,56 +40,59 @@ const Exercises = ({
   onDelete,
   onSelectEdit,
   onEdit,
+  classes,
 }) => (
-  <Grid container>
-    <Grid item sm>
-      <Paper style={styles.Paper}>
-        {exercises.map(
-          ([group, exercises]) =>
-            !category || category === group ? (
-              <Fragment key={group}>
-                <Typography
-                  key={group}
-                  variant="headline"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {group}
-                </Typography>
-                <List component="ul">
-                  {exercises.map(({ id, title }) => (
-                    <ListItem key={id} button onClick={() => onSelect(id)}>
-                      <ListItemText primary={title} />
-                      <ListItemSecondaryAction>
-                        <IconButton aria-label="Edit" onClick={() => onSelectEdit(id)}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
-                </List>
-              </Fragment>
-            ) : null,
-        )}
-      </Paper>
+  <div className={classes.root}>
+    <Grid container>
+      <Grid item xs={12} sm={6}>
+        <Paper className={classes.paper}>
+          {exercises.map(
+            ([group, exercises]) =>
+              !category || category === group ? (
+                <Fragment key={group}>
+                  <Typography
+                    key={group}
+                    variant="headline"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {group}
+                  </Typography>
+                  <List component="ul">
+                    {exercises.map(({ id, title }) => (
+                      <ListItem key={id} button onClick={() => onSelect(id)}>
+                        <ListItemText primary={title} />
+                        <ListItemSecondaryAction>
+                          <IconButton aria-label="Edit" onClick={() => onSelectEdit(id)}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Fragment>
+              ) : null,
+          )}
+        </Paper>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Paper className={classes.paper}>
+          {editMode ? (
+            <ExerciseForm muscles={muscles} onSubmit={onEdit} exercise={exercise} />
+          ) : (
+            <Fragment>
+              <Typography variant="display1">{title}</Typography>
+              <Typography variant="subheading" style={{ marginTop: 20 }}>
+                {description}
+              </Typography>
+            </Fragment>
+          )}
+        </Paper>
+      </Grid>
     </Grid>
-    <Grid item sm>
-      <Paper style={styles.Paper}>
-        {editMode ? (
-          <ExerciseForm muscles={muscles} onSubmit={onEdit} exercise={exercise} />
-        ) : (
-          <Fragment>
-            <Typography variant="display1">{title}</Typography>
-            <Typography variant="subheading" style={{ marginTop: 20 }}>
-              {description}
-            </Typography>
-          </Fragment>
-        )}
-      </Paper>
-    </Grid>
-  </Grid>
+  </div>
 );
 
-export default Exercises;
+export default withStyles(styles)(Exercises);
