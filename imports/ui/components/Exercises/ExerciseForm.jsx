@@ -23,8 +23,8 @@ class ExerciseForm extends Component {
     return exercise || { title: "", description: "", muscles: "" };
   }
 
-  componentWillReceiveProps({ exercise }) {
-    this.setState({ ...exercise });
+  static getDerivedStateFromProps({ exercise }) {
+    return exercise || null;
   }
 
   handleChange = field => ({ target: { value } }) =>
