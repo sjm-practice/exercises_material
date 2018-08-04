@@ -43,10 +43,10 @@ export default withStyles(styles)(
       }));
 
     handleExerciseDelete = id =>
-      this.setState(({ exercises: exs }) => ({
+      this.setState(({ exercises: exs, exercise, editMode }) => ({
         exercises: exs.filter(ex => ex.id !== id),
-        editMode: false,
-        exercise: {},
+        editMode: exercise.id === id ? false : editMode,
+        exercise: exercise.id === id ? {} : exercise, // handles deleting this exercise while selected or a different one
       }));
 
     handleExerciseSelectEdit = id =>
