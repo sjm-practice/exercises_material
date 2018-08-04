@@ -2,7 +2,6 @@
 /* eslint-disable func-names, prefer-arrow-callback, no-unused-expressions */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
-import renderer from "react-test-renderer";
 import { mount } from "enzyme";
 import App from "../App";
 import Header from "../components/layouts/Header";
@@ -10,7 +9,8 @@ import Footer from "../components/layouts/Footer";
 
 describe("<App />", function() {
   it("matches render snapshot", function() {
-    const tree = renderer.create(<App />);
+    // using enzyme-to-json serializer (configured in jest-config)
+    const tree = mount(<App />);
     expect(tree).toMatchSnapshot();
   });
 

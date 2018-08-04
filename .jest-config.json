@@ -2,6 +2,10 @@
   "verbose": false,
   "clearMocks": true,
   "setupTestFrameworkScriptFile": "<rootDir>/tests/jestSetup.js",
+  "testURL": "http://localhost:3000",
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
   "moduleNameMapper": {
     "^meteor/(.*)$": "<rootDir>/tests/jest-meteor-mocks/$1.js"
   },
