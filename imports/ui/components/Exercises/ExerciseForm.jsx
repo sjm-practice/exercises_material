@@ -6,10 +6,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
 
 // eslint-disable-next-line no-unused-vars
 const styles = theme => ({
   FormControl: {
+    width: 400,
+  },
+  xsFormControl: {
     width: 250,
   },
 });
@@ -49,7 +53,7 @@ class ExerciseForm extends Component {
 
   render() {
     const { title, description, muscles } = this.state;
-    const { exercise, classes, muscles: categories } = this.props;
+    const { exercise, classes, width, muscles: categories } = this.props;
 
     return (
       <form>
@@ -58,7 +62,7 @@ class ExerciseForm extends Component {
           value={title}
           onChange={this.handleChange("title")}
           margin="normal"
-          className={classes.FormControl}
+          className={width === "xs" ? classes.xsFormControl : classes.FormControl}
         />
         <br />
         <FormControl className={classes.FormControl}>
@@ -90,4 +94,4 @@ class ExerciseForm extends Component {
   }
 }
 
-export default withStyles(styles)(ExerciseForm);
+export default withWidth()(withStyles(styles)(ExerciseForm));
