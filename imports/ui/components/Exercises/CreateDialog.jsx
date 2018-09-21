@@ -33,7 +33,13 @@ class CreateDialog extends Component {
 
     return (
       <Fragment>
-        <Button variant="fab" aria-label="Add" mini onClick={this.handleToggle}>
+        <Button
+          variant="fab"
+          aria-label="Add"
+          mini
+          onClick={this.handleToggle}
+          color="secondary"
+        >
           <AddIcon />
         </Button>
         <Dialog

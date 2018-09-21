@@ -53,6 +53,7 @@ const Exercises = ({
                     key={group}
                     variant="headline"
                     style={{ textTransform: "capitalize" }}
+                    color="secondary"
                   >
                     {group}
                   </Typography>
@@ -61,10 +62,18 @@ const Exercises = ({
                       <ListItem key={id} button onClick={() => onSelect(id)}>
                         <ListItemText primary={title} />
                         <ListItemSecondaryAction>
-                          <IconButton aria-label="Edit" onClick={() => onSelectEdit(id)}>
+                          <IconButton
+                            color="primary"
+                            aria-label="Edit"
+                            onClick={() => onSelectEdit(id)}
+                          >
                             <EditIcon />
                           </IconButton>
-                          <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
+                          <IconButton
+                            color="primary"
+                            aria-label="Delete"
+                            onClick={() => onDelete(id)}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </ListItemSecondaryAction>
@@ -78,7 +87,7 @@ const Exercises = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <Paper className={classes.paper}>
-          <Typography variant="display1" gutterBottom>
+          <Typography variant="display1" gutterBottom color="secondary">
             {title}
           </Typography>
           {editMode ? (
