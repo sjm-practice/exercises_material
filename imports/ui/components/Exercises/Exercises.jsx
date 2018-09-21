@@ -78,6 +78,9 @@ const Exercises = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <Paper className={classes.paper}>
+          <Typography variant="display1" gutterBottom>
+            {title}
+          </Typography>
           {editMode ? (
             <ExerciseForm
               key={id}
@@ -86,12 +89,7 @@ const Exercises = ({
               exercise={exercise}
             />
           ) : (
-            <Fragment>
-              <Typography variant="display1">{title}</Typography>
-              <Typography variant="subheading" style={{ marginTop: 20 }}>
-                {description}
-              </Typography>
-            </Fragment>
+            <Typography variant="subheading">{description}</Typography>
           )}
         </Paper>
       </Grid>
