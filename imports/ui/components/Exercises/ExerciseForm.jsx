@@ -27,10 +27,6 @@ class ExerciseForm extends Component {
     return exercise || { title: "", description: "", muscles: "" };
   }
 
-  static getDerivedStateFromProps({ exercise }) {
-    return exercise || null;
-  }
-
   handleChange = field => ({ target: { value } }) =>
     this.setState({
       [field]: value, // update new field value
@@ -46,9 +42,6 @@ class ExerciseForm extends Component {
       id: title.toLocaleLowerCase().replace(/ /g, "-"),
       ...this.state,
     });
-
-    // clear and close the form dialog
-    this.setState(this.getInitialState());
   };
 
   render() {

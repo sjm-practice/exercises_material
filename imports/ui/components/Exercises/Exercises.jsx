@@ -32,7 +32,7 @@ const Exercises = ({
   onSelect,
   exercise, // ??? I don't get how this can be listed twice. maybe the second behaves like default.
   exercise: {
-    id,
+    id, // by passing id as a prop to key, it will trigger a render again
     title = "Welcome!",
     description = "Please select an exercise from the list on the left.",
   },
@@ -79,7 +79,12 @@ const Exercises = ({
       <Grid item xs={12} sm={6}>
         <Paper className={classes.paper}>
           {editMode ? (
-            <ExerciseForm muscles={muscles} onSubmit={onEdit} exercise={exercise} />
+            <ExerciseForm
+              key={id}
+              muscles={muscles}
+              onSubmit={onEdit}
+              exercise={exercise}
+            />
           ) : (
             <Fragment>
               <Typography variant="display1">{title}</Typography>
