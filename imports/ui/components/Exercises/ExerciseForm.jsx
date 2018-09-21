@@ -79,7 +79,12 @@ class ExerciseForm extends Component {
           className={classes.FormControl}
         />
         <br />
-        <Button color="primary" variant="raised" onClick={this.handleSubmit}>
+        <Button
+          color="primary"
+          variant="raised"
+          onClick={this.handleSubmit}
+          disabled={!title || !muscles}
+        >
           {exercise ? "Edit" : "Create"}
         </Button>
       </form>
