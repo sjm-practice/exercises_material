@@ -40,6 +40,8 @@ class CreateDialog extends Component {
           open={open}
           onClose={this.handleToggle}
           aria-labelledby="form-dialog-title"
+          fullWidth
+          maxWidth="xs"
         >
           <DialogTitle id="form-dialog-title">Create a new exercise</DialogTitle>
           <DialogContent>
