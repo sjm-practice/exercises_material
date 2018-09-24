@@ -13,14 +13,20 @@ import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
+  "@global": {
+    // note, this can be done from any styles class (prob more appropriate in main.jsx)
+    "html, body, #render-target": {
+      height: "100%",
+    },
   },
   paper: {
     padding: 20,
     marginTop: 5,
-    height: 500,
+    height: "calc(100% - 5px - 5px)", // each -5px accounts for a margin below header and above footer
     overflowY: "auto",
+  },
+  container: {
+    height: "calc(100% - 64px - 48px)",
   },
 });
 
@@ -41,69 +47,67 @@ const Exercises = ({
   onEdit,
   classes,
 }) => (
-  <div className={classes.root}>
-    <Grid container>
-      <Grid item xs={12} sm={6}>
-        <Paper className={classes.paper}>
-          {exercises.map(
-            ([group, exercises]) =>
-              !category || category === group ? (
-                <Fragment key={group}>
-                  <Typography
-                    key={group}
-                    variant="headline"
-                    style={{ textTransform: "capitalize" }}
-                    color="secondary"
-                  >
-                    {group}
-                  </Typography>
-                  <List component="ul">
-                    {exercises.map(({ id, title }) => (
-                      <ListItem key={id} button onClick={() => onSelect(id)}>
-                        <ListItemText primary={title} />
-                        <ListItemSecondaryAction>
-                          <IconButton
-                            color="primary"
-                            aria-label="Edit"
-                            onClick={() => onSelectEdit(id)}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            color="primary"
-                            aria-label="Delete"
-                            onClick={() => onDelete(id)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Fragment>
-              ) : null,
-          )}
-        </Paper>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Paper className={classes.paper}>
-          <Typography variant="display1" gutterBottom color="secondary">
-            {title}
-          </Typography>
-          {editMode ? (
-            <ExerciseForm
-              key={id}
-              muscles={muscles}
-              onSubmit={onEdit}
-              exercise={exercise}
-            />
-          ) : (
-            <Typography variant="subheading">{description}</Typography>
-          )}
-        </Paper>
-      </Grid>
+  <Grid container className={classes.container}>
+    <Grid item xs={12} sm={6}>
+      <Paper className={classes.paper}>
+        {exercises.map(
+          ([group, exercises]) =>
+            !category || category === group ? (
+              <Fragment key={group}>
+                <Typography
+                  key={group}
+                  variant="headline"
+                  style={{ textTransform: "capitalize" }}
+                  color="secondary"
+                >
+                  {group}
+                </Typography>
+                <List component="ul">
+                  {exercises.map(({ id, title }) => (
+                    <ListItem key={id} button onClick={() => onSelect(id)}>
+                      <ListItemText primary={title} />
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          color="primary"
+                          aria-label="Edit"
+                          onClick={() => onSelectEdit(id)}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="primary"
+                          aria-label="Delete"
+                          onClick={() => onDelete(id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              </Fragment>
+            ) : null,
+        )}
+      </Paper>
     </Grid>
-  </div>
+    <Grid item xs={12} sm={6}>
+      <Paper className={classes.paper}>
+        <Typography variant="display1" gutterBottom color="secondary">
+          {title}
+        </Typography>
+        {editMode ? (
+          <ExerciseForm
+            key={id}
+            muscles={muscles}
+            onSubmit={onEdit}
+            exercise={exercise}
+          />
+        ) : (
+          <Typography variant="subheading">{description}</Typography>
+        )}
+      </Paper>
+    </Grid>
+  </Grid>
 );
 
 export default withStyles(styles)(Exercises);
