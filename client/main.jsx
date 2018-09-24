@@ -15,6 +15,9 @@ const theme = createMuiTheme({
     },
     type: "dark",
   },
+  spacing: {
+    unit: 10,
+  },
 });
 
 Meteor.startup(() => {

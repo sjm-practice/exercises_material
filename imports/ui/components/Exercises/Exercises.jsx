@@ -20,7 +20,7 @@ const styles = theme => ({
     },
   },
   paper: {
-    padding: 20,
+    padding: theme.spacing.unit * 2,
     overflowY: "auto",
     [theme.breakpoints.up("sm")]: {
       marginTop: 5,
