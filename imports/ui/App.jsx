@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens, object-curly-newline react/destructuring-assignment */
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import CssBaseLine from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
@@ -7,6 +7,7 @@ import Header from "./components/layouts/Header";
 import Exercises from "./components/exercises/Exercises";
 import Footer from "./components/layouts/Footer";
 import { muscles, exercises } from "../data/store";
+import { Provider } from "../context";
 import AlertDialogSlide, { alertDialog } from "./components/global/AlertDialogSlide";
 
 // App component - represents the whole app
@@ -62,6 +63,11 @@ export default withStyles(styles)(
         exercise,
       }));
 
+    getContext = () => ({
+      muscles,
+      ...this.state,
+    });
+
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
@@ -69,10 +75,10 @@ export default withStyles(styles)(
       const { category, exercise, editMode } = this.state;
 
       return (
-        <Fragment>
+        <Provider value={this.getContext()}>
           <CssBaseLine />
 
-          <Header muscles={muscles} onExerciseCreate={this.handleExerciseCreate} />
+          <Header onExerciseCreate={this.handleExerciseCreate} />
 
           <Exercises
             exercise={exercise}
@@ -93,7 +99,7 @@ export default withStyles(styles)(
           />
 
           <AlertDialogSlide />
-        </Fragment>
+        </Provider>
       );
     }
   },
