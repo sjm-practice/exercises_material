@@ -9,17 +9,41 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { withStyles } from "@material-ui/core/styles";
 import ExerciseForm from "./ExerciseForm";
 
-const styles = {
-  Paper: {
-    padding: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    height: 500,
-    overflowY: "auto",
+const styles = theme => ({
+  "@global": {
+    // note, this can be done from any styles class (prob more appropriate in main.jsx)
+    "html, body, #render-target": {
+      height: "100%",
+    },
   },
-};
+  paper: {
+    padding: theme.spacing.unit * 2,
+    overflowY: "auto",
+    [theme.breakpoints.up("sm")]: {
+      marginTop: 5,
+      height: "calc(100% - 5px - 5px)", // each -5px accounts for a margin below header and above footer
+    },
+    [theme.breakpoints.down("xs")]: {
+      height: "100%",
+    },
+  },
+  container: {
+    [theme.breakpoints.up("sm")]: {
+      height: "calc(100% - 64px - 48px)",
+    },
+    [theme.breakpoints.up("xs")]: {
+      height: "calc(100% - 56px - 48px)",
+    },
+  },
+  item: {
+    [theme.breakpoints.down("xs")]: {
+      height: "50%",
+    },
+  },
+});
 
 const Exercises = ({
   muscles,
@@ -29,17 +53,18 @@ const Exercises = ({
   onSelect,
   exercise, // ??? I don't get how this can be listed twice. maybe the second behaves like default.
   exercise: {
-    id,
+    id, // by passing id as a prop to key, it will trigger a render again
     title = "Welcome!",
     description = "Please select an exercise from the list on the left.",
   },
   onDelete,
   onSelectEdit,
   onEdit,
+  classes,
 }) => (
-  <Grid container>
-    <Grid item sm>
-      <Paper style={styles.Paper}>
+  <Grid container className={classes.container}>
+    <Grid item className={classes.item} xs={12} sm={6}>
+      <Paper className={classes.paper}>
         {exercises.map(
           ([group, exercises]) =>
             !category || category === group ? (
@@ -48,6 +73,7 @@ const Exercises = ({
                   key={group}
                   variant="headline"
                   style={{ textTransform: "capitalize" }}
+                  color="secondary"
                 >
                   {group}
                 </Typography>
@@ -56,10 +82,18 @@ const Exercises = ({
                     <ListItem key={id} button onClick={() => onSelect(id)}>
                       <ListItemText primary={title} />
                       <ListItemSecondaryAction>
-                        <IconButton aria-label="Edit" onClick={() => onSelectEdit(id)}>
+                        <IconButton
+                          color="primary"
+                          aria-label="Edit"
+                          onClick={() => onSelectEdit(id)}
+                        >
                           <EditIcon />
                         </IconButton>
-                        <IconButton aria-label="Delete" onClick={() => onDelete(id)}>
+                        <IconButton
+                          color="primary"
+                          aria-label="Delete"
+                          onClick={() => onDelete(id)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </ListItemSecondaryAction>
@@ -71,21 +105,24 @@ const Exercises = ({
         )}
       </Paper>
     </Grid>
-    <Grid item sm>
-      <Paper style={styles.Paper}>
+    <Grid item className={classes.item} xs={12} sm={6}>
+      <Paper className={classes.paper}>
+        <Typography variant="display1" gutterBottom color="secondary">
+          {title}
+        </Typography>
         {editMode ? (
-          <ExerciseForm muscles={muscles} onSubmit={onEdit} exercise={exercise} />
+          <ExerciseForm
+            key={id}
+            muscles={muscles}
+            onSubmit={onEdit}
+            exercise={exercise}
+          />
         ) : (
-          <Fragment>
-            <Typography variant="display1">{title}</Typography>
-            <Typography variant="subheading" style={{ marginTop: 20 }}>
-              {description}
-            </Typography>
-          </Fragment>
+          <Typography variant="subheading">{description}</Typography>
         )}
       </Paper>
     </Grid>
   </Grid>
 );
 
-export default Exercises;
+export default withStyles(styles)(Exercises);

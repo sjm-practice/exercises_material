@@ -5,14 +5,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { withStyles } from "@material-ui/core/styles";
-
-// eslint-disable-next-line no-unused-vars
-const styles = theme => ({
-  FormControl: {
-    width: 300,
-  },
-});
 
 class ExerciseForm extends Component {
   state = this.getInitialState();
@@ -21,10 +13,6 @@ class ExerciseForm extends Component {
     const { exercise } = this.props;
 
     return exercise || { title: "", description: "", muscles: "" };
-  }
-
-  componentWillReceiveProps({ exercise }) {
-    this.setState({ ...exercise });
   }
 
   handleChange = field => ({ target: { value } }) =>
@@ -42,14 +30,11 @@ class ExerciseForm extends Component {
       id: title.toLocaleLowerCase().replace(/ /g, "-"),
       ...this.state,
     });
-
-    // clear and close the form dialog
-    this.setState(this.getInitialState());
   };
 
   render() {
     const { title, description, muscles } = this.state;
-    const { exercise, classes, muscles: categories } = this.props;
+    const { exercise, muscles: categories } = this.props;
 
     return (
       <form>
@@ -58,10 +43,10 @@ class ExerciseForm extends Component {
           value={title}
           onChange={this.handleChange("title")}
           margin="normal"
-          className={classes.FormControl}
+          fullWidth
         />
         <br />
-        <FormControl className={classes.FormControl}>
+        <FormControl fullWidth>
           <InputLabel htmlFor="muscles">Muscles</InputLabel>
           <Select value={muscles} onChange={this.handleChange("muscles")}>
             {categories.map(category => (
@@ -79,10 +64,15 @@ class ExerciseForm extends Component {
           value={description}
           onChange={this.handleChange("description")}
           margin="normal"
-          className={classes.FormControl}
+          fullWidth
         />
         <br />
-        <Button color="primary" variant="raised" onClick={this.handleSubmit}>
+        <Button
+          color="primary"
+          variant="raised"
+          onClick={this.handleSubmit}
+          disabled={!title || !muscles}
+        >
           {exercise ? "Edit" : "Create"}
         </Button>
       </form>
@@ -90,4 +80,4 @@ class ExerciseForm extends Component {
   }
 }
 
-export default withStyles(styles)(ExerciseForm);
+export default ExerciseForm;

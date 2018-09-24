@@ -33,13 +33,21 @@ class CreateDialog extends Component {
 
     return (
       <Fragment>
-        <Button variant="fab" aria-label="Add" mini onClick={this.handleToggle}>
+        <Button
+          variant="fab"
+          aria-label="Add"
+          mini
+          onClick={this.handleToggle}
+          color="secondary"
+        >
           <AddIcon />
         </Button>
         <Dialog
           open={open}
           onClose={this.handleToggle}
           aria-labelledby="form-dialog-title"
+          fullWidth
+          maxWidth="xs"
         >
           <DialogTitle id="form-dialog-title">Create a new exercise</DialogTitle>
           <DialogContent>
