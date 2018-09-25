@@ -66,6 +66,7 @@ export default withStyles(styles)(
     getContext = () => ({
       muscles,
       ...this.state,
+      onCategorySelect: this.handleCategorySelect,
       onCreate: this.handleExerciseCreate,
     });
 

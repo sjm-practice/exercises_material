@@ -1,31 +1,42 @@
-import React from "react";
+import React, { Component } from "react";
 import { Tabs, Tab, AppBar } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
+import { withContext } from "../../../context";
 
-const Footer = ({ muscles, category, onSelect, width }) => {
-  const index = category ? muscles.findIndex(group => group === category) + 1 : 0;
+class Footer extends Component {
+  onIndexSelect = (e, i) => {
+    const { onCategorySelect, muscles } = this.props;
 
-  const onIndexSelect = (e, i) => {
-    onSelect(i === 0 ? "" : muscles[i - 1]);
+    onCategorySelect(i === 0 ? "" : muscles[i - 1]);
   };
 
-  return (
-    <AppBar position="static">
-      <Tabs
-        value={index}
-        onChange={onIndexSelect}
-        indicatorColor="secondary"
-        textColor="secondary"
-        centered={width !== "xs"}
-        scrollable={width === "xs"}
-      >
-        <Tab key="All" label="All" />
-        {muscles.map(muscleGroup => (
-          <Tab key={muscleGroup} label={muscleGroup} />
-        ))}
-      </Tabs>
-    </AppBar>
-  );
-};
+  getIndex = () => {
+    const { category, muscles } = this.props;
 
-export default withWidth()(Footer);
+    return category ? muscles.findIndex(group => group === category) + 1 : 0;
+  };
+
+  render() {
+    const { width, muscles } = this.props;
+
+    return (
+      <AppBar position="static">
+        <Tabs
+          value={this.getIndex()}
+          onChange={this.onIndexSelect}
+          indicatorColor="secondary"
+          textColor="secondary"
+          centered={width !== "xs"}
+          scrollable={width === "xs"}
+        >
+          <Tab key="All" label="All" />
+          {muscles.map(muscleGroup => (
+            <Tab key={muscleGroup} label={muscleGroup} />
+          ))}
+        </Tabs>
+      </AppBar>
+    );
+  }
+}
+
+export default withContext(withWidth()(Footer));
