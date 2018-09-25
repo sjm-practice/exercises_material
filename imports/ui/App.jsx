@@ -66,6 +66,7 @@ export default withStyles(styles)(
     getContext = () => ({
       muscles,
       ...this.state,
+      onCreate: this.handleExerciseCreate,
     });
 
     render() {
@@ -78,7 +79,7 @@ export default withStyles(styles)(
         <Provider value={this.getContext()}>
           <CssBaseLine />
 
-          <Header onExerciseCreate={this.handleExerciseCreate} />
+          <Header />
 
           <Exercises
             exercise={exercise}
