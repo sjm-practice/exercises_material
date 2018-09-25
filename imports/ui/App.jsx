@@ -66,15 +66,17 @@ export default withStyles(styles)(
     getContext = () => ({
       muscles,
       ...this.state,
+      exercisesByMuscles: this.getExercisesByMuscle(),
       onCategorySelect: this.handleCategorySelect,
       onCreate: this.handleExerciseCreate,
+      onEdit: this.handleExerciseEdit,
+      onSelectEdit: this.handleExerciseSelectEdit,
+      onDelete: this.handleExerciseDelete,
+      onSelect: this.handleExerciseSelect,
     });
 
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
-
-      const exs = this.getExercisesByMuscle();
-      const { category, exercise, editMode } = this.state;
 
       return (
         <Provider value={this.getContext()}>
@@ -82,23 +84,9 @@ export default withStyles(styles)(
 
           <Header />
 
-          <Exercises
-            exercise={exercise}
-            category={category}
-            exercises={exs}
-            editMode={editMode}
-            muscles={muscles}
-            onSelect={this.handleExerciseSelect}
-            onDelete={this.handleExerciseDelete}
-            onSelectEdit={this.handleExerciseSelectEdit}
-            onEdit={this.handleExerciseEdit}
-          />
+          <Exercises />
 
-          <Footer
-            category={category}
-            muscles={muscles}
-            onSelect={this.handleCategorySelect}
-          />
+          <Footer />
 
           <AlertDialogSlide />
         </Provider>
