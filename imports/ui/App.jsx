@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens, object-curly-newline react/destructuring-assignment */
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import CssBaseLine from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
@@ -7,6 +7,7 @@ import Header from "./components/layouts/Header";
 import Exercises from "./components/exercises/Exercises";
 import Footer from "./components/layouts/Footer";
 import { muscles, exercises } from "../data/store";
+import { Provider } from "../context";
 import AlertDialogSlide, { alertDialog } from "./components/global/AlertDialogSlide";
 
 // App component - represents the whole app
@@ -62,38 +63,33 @@ export default withStyles(styles)(
         exercise,
       }));
 
+    getContext = () => ({
+      muscles,
+      ...this.state,
+      exercisesByMuscles: this.getExercisesByMuscle(),
+      onCategorySelect: this.handleCategorySelect,
+      onCreate: this.handleExerciseCreate,
+      onEdit: this.handleExerciseEdit,
+      onSelectEdit: this.handleExerciseSelectEdit,
+      onDelete: this.handleExerciseDelete,
+      onSelect: this.handleExerciseSelect,
+    });
+
     render() {
       const { classes } = this.props; // eslint-disable-line no-unused-vars
 
-      const exs = this.getExercisesByMuscle();
-      const { category, exercise, editMode } = this.state;
-
       return (
-        <Fragment>
+        <Provider value={this.getContext()}>
           <CssBaseLine />
 
-          <Header muscles={muscles} onExerciseCreate={this.handleExerciseCreate} />
+          <Header />
 
-          <Exercises
-            exercise={exercise}
-            category={category}
-            exercises={exs}
-            editMode={editMode}
-            muscles={muscles}
-            onSelect={this.handleExerciseSelect}
-            onDelete={this.handleExerciseDelete}
-            onSelectEdit={this.handleExerciseSelectEdit}
-            onEdit={this.handleExerciseEdit}
-          />
+          <Exercises />
 
-          <Footer
-            category={category}
-            muscles={muscles}
-            onSelect={this.handleCategorySelect}
-          />
+          <Footer />
 
           <AlertDialogSlide />
-        </Fragment>
+        </Provider>
       );
     }
   },

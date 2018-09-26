@@ -6,6 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
 import ExerciseForm from "./ExerciseForm";
+import { withContext } from "../../../context";
 
 class CreateDialog extends Component {
   state = {
@@ -22,14 +23,14 @@ class CreateDialog extends Component {
   handleFormSubmit = exercise => {
     this.handleToggle();
 
-    const { onCreate } = this.props;
+    const { onCreate } = this.props; // note, this prop comes from context
 
     onCreate(exercise);
   };
 
   render() {
     const { open } = this.state;
-    const { muscles } = this.props;
+    const { muscles } = this.props; // note, this prop comes from context
 
     return (
       <Fragment>
@@ -60,4 +61,4 @@ class CreateDialog extends Component {
   }
 }
 
-export default CreateDialog;
+export default withContext(CreateDialog);

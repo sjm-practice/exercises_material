@@ -9,13 +9,13 @@ const styles = {
   },
 };
 
-const Header = ({ classes, muscles, onExerciseCreate }) => (
+const Header = ({ classes }) => (
   <AppBar position="static">
     <Toolbar>
       <Typography variant="headline" color="inherit" className={classes.flex}>
         Exercise Database
       </Typography>
-      <CreateDialog muscles={muscles} onCreate={onExerciseCreate} />
+      <CreateDialog />
     </Toolbar>
   </AppBar>
 );
